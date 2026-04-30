@@ -1,3 +1,14 @@
+# TFLuna Arduino Library
+
+I modified this library to fix a bug related to using this library with the TFLuna instead of the TFMiniPlus. The bugfix was written with the help of AI.
+
+
+
+
+
+
+
+
 # Arduino Library for the TFMiniPlus Lidar system.
 
 First of all ... i want to thank Jimi Hindrix, Eddie Hazel, The Doors and so many more for their moral support during the writing of this library. They shall remain an inspiration to this generation and all the generations to come. 
