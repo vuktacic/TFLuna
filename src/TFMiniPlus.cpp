@@ -202,6 +202,15 @@ bool TFMiniPlus::readCommandResponse(uint8_t buffer[], size_t buffer_size) {
   uint8_t length = 0x00;
   _stream->readBytes(&length, 1);
 
+  // Validate length to prevent buffer overflow and malformed frames
+  if (length < 2 || length > MAX_CMD_RESPONSE_LENGTH) {
+    // Bad length: attempt a short drain to resynchronize then fail
+    uint32_t start = millis();
+    // Drain available bytes for a short period (50ms)
+    while (millis() - start < 50 && _stream->available()) { uint8_t tmp; _stream->readBytes(&tmp, 1); }
+    return false;
+  }
+
   // get the command body "all - (header and length bytes)"
   uint8_t response[MAX_CMD_RESPONSE_LENGTH] = {CMD_FRAME_MARKER, length};
   _stream->readBytes(&response[2], length - 2);
